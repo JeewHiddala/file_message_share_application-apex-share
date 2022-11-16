@@ -9,7 +9,7 @@ exports.uploadFile = async (req, res) => {
       'secret key 123'
     )
     let file_url = JSON.parse(decrypted_fileUrl.toString(CryptoJS.enc.Utf8))
-    console.log("fileUrl",fileUrl)
+    console.log("fileUrl",file_url)
 
     const file = new File({
         fileUrl: file_url,
