@@ -1,0 +1,4 @@
+REACT_APP_BACKEND_URL="http://localhost:4444/"
+
+# Only for environmental testing purposes
+REACT_APP_BACKEND_URL_TEST="http://localhost:9000/"
