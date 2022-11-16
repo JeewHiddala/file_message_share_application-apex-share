@@ -1,2 +1,2 @@
-MONGODB_URL=mongodb+srv://admin:admin@demo-todo-app-aws.rvjfmqo.mongodb.net/?retryWrites=true&w=majority
+MONGODB_URL=mongodb+srv://apex:apex@apex.hnoxmdv.mongodb.net/?retryWrites=true&w=majority
 PORT = 4444
