@@ -14,9 +14,8 @@ class Navbar extends Component {
         this.state = {
             currentUser: undefined,
             isManager: false,
-            isReceptionist: false,
-            isKitchenHead: false,
-            isCustomer: false
+            isWorker: false,
+            isAdmin: false
         };
     }
 
@@ -33,23 +32,19 @@ class Navbar extends Component {
             .then(
                 response => {
                     console.log("fffffff", response.data.role.name);
-                    if (!response.data.role.name.localeCompare("Manager")) {
+                    if (!response.data.role.name.localeCompare("manager")) {
                         this.setState({
                             isManager: true,
                         });
                         console.log("mmmm", this.state.isManager);
 
-                    } else if (!response.data.role.name.localeCompare("Receptionist")) {
+                    } else if (!response.data.role.name.localeCompare("worker")) {
                         this.setState({
-                            isReceptionist: true,
+                            isWorker: true,
                         });
-                    } else if (!response.data.role.name.localeCompare("Kitchen Head")) {
+                    } else if (!response.data.role.name.localeCompare("admin")) {
                         this.setState({
-                            isKitchenHead: true,
-                        });
-                    } else if (!response.data.role.name.localeCompare("customer")) {
-                        this.setState({
-                            isCustomer: true,
+                            isAdmin: true,
                         });
                     }
 
@@ -64,9 +59,8 @@ class Navbar extends Component {
     render() {
         const { currentUser } = this.state;
         const { isManager } = this.state;
-        const { isReceptionist } = this.state;
-        const { isKitchenHead } = this.state;
-        const { isCustomer } = this.state;
+        const { isWorker } = this.state;
+        const { isAdmin } = this.state;
 
         return (
             <div>
@@ -93,34 +87,20 @@ class Navbar extends Component {
 
                                 {isManager && (
                                     <li className="nav-item">
+                                        <a className="nav-link" href="/managerproperties">User</a>
+                                    </li>
+                                )}
+                                {isWorker && (
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/create-message">User</a>
+                                    </li>
+                                )}
+                                {isAdmin && (
+                                    <li className="nav-item">
                                         <a className="nav-link" href="/workingEmployee">User</a>
                                     </li>
                                 )}
-                                {isReceptionist && (
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/checkAvailableRooms">User</a>
-                                    </li>
-                                )}
-                                {isKitchenHead && (
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/kitchenHeadDashboard">User</a>
-                                    </li>
-                                )}
-                                {isCustomer && (
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/customerhome">User</a>
-                                    </li>
-                                )}
 
-                                {isCustomer && (
-                                      <li className="nav-item" >
-                                      {/* <a className="nav-link" href="/cart">Cart
-                                          {cartItems.length > 0 && (
-                                              <span className="badge">{cartItems.length}</span>
-                                          )}
-                                      </a> */}
-                                  </li>
-                                )}
                             </div>
 
                             {currentUser ? (

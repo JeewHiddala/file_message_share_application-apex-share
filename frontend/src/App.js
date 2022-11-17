@@ -9,11 +9,12 @@ import {
 import Footer from './components/footer/footer'
 import WorkingEmployee from './components/managerComponents/views/employeeManagement/workingEmployee' //IT19007502 - Hiddalarachchi J.
 import CreateEmployee from './components/managerComponents/createForms/employeeManagament/createEmployee' //IT19007502 - Hiddalarachchi J.
-import UpdateProfile from "./components/profile/profile-update";
-import UpdateProfileImage from "./components/profile/image-update";
+// import UpdateProfile from "./components/profile/profile-update";
+import ManagerProperties from "./components/profile/managerProperties";
 import Login from './components/login/login.component'
 import Profile from './components/profile/profile.component'
 import NavBar from './components/navBar/navBar'
+import Message from "./pages/message";
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
             {/* </ManagerDashboard>  */}
             <Route path="/" element={<Navigate to="/login" />}></Route>
             <Route exact path="/login" element={<Login />}></Route>
-            <Route exact path="/update-image" element={<UpdateProfileImage />} ></Route>
+            <Route exact path="/managerproperties" element={<ManagerProperties />} ></Route>
+            <Route path="/create-message" element={<Message />}></Route>
             {/* <Route exact path="/update-image/:id" element={<UpdateProfileImage />} ></Route> */}
             <Route exact path="/profile" element={<Profile />}></Route>
           </Routes>

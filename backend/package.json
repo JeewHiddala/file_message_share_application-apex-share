@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "env-cmd ./db/dev.env nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,8 @@
     "nodemon": "^2.0.19"
   },
   "devDependencies": {
-    "env-cmd": "^8.0.2"
+    "env-cmd": "^8.0.2",
+    "jest": "^29.3.1",
+    "supertest": "^6.3.1"
   }
 }

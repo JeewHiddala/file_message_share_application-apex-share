@@ -4,12 +4,14 @@ import AuthService from '../../services/auth.service'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import CryptoJS from 'crypto-js'
+// var CryptoJS = require("crypto-js");
 
 import './profile-styles.css'
 
 const UpdateProfileImage = () => {
   const [image, setImage] = useState('')
   const [url, setUrl] = useState('')
+  const [messageInput, setMessageInput] = useState('')
   //   const [managerId, setManagerId] = useState('')
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const UpdateProfileImage = () => {
 
       let profile = {
         fileUrl: cipher_fileUrl,
-        managerId: currentUser.id
+        managerId: currentUser.id,
       }
       console.log('DATA TO SEND', cipher_fileUrl)
       axios
@@ -66,6 +68,39 @@ const UpdateProfileImage = () => {
       })
   }
 
+  // onsub
+  const onSubmit = (e) => {
+    console.log('msg Submit', messageInput)
+    e.preventDefault()
+
+    let key = 'cQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s'
+    let iv = '4565777a72ddc2f1'
+    let cipher = CryptoJS.AES.encrypt(
+      JSON.stringify(messageInput),
+      CryptoJS.enc.Utf8.parse(key),
+      {
+        iv: CryptoJS.enc.Utf8.parse(iv),
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC,
+      }
+    )
+
+    let message = {
+      message: cipher.toString(),
+    }
+    console.log('DATA TO SEND', message)
+
+    axios
+      .post('http://localhost:4444/message/create', message)
+      .then((response) => {
+        alert('Data successfully inserted')
+      })
+      .catch((error) => {
+        console.log(error.message)
+        alert(error.message)
+      })
+  }
+
   return (
     <div>
       <h4 className="mgtprop">Manager Properties</h4>
@@ -96,26 +131,53 @@ const UpdateProfileImage = () => {
                   />
                 </div>
 
-                {/* <div className="file-field input-field" style={{ margin: "10px" }}>
-                                        <div className="btn #64b5f6 blue darken-1">
-                                            <span>Update pic</span>
-                                            <input type="file" onChange={(e) => updatePhoto(e.target.files[0])} />
-                                        </div>
-                                        <div className="file-path-wrapper">
-                                            <input className="file-path validate" type="text" />
-                                        </div>
-                                    </div> */}
                 <br />
                 <br />
               </form>
+              <div className="container">
+                <h5>New Message </h5>
+                <h5
+                  htmlFor="content"
+                  className="form-label mb-4"
+                  style={{ textAlign: 'left' }}
+                ></h5>
+
+                <form>
+                  <div className={'row'}>
+                    <div className={'col-md-6'}>
+                      <div className="col-10" style={{ textAlign: 'left' }}>
+                        <label htmlFor="message" className="form-label">
+                          Enter Message
+                        </label>
+                        <textarea
+                          type="text"
+                          rows="3"
+                          className="form-control"
+                          id="message"
+                          name="message"
+                          required
+                          value={messageInput}
+                          onChange={(e) => setMessageInput(e.target.value)}
+                        />
+                      </div>
+                      <br></br>
+                      <br></br>
+
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={(e) => onSubmit(e)}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                </form>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="container-form">
-        <div>
-          <h5>Messaging</h5>
-          <div className="container">
           </div>
         </div>
       </div>

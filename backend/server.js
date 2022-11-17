@@ -10,10 +10,11 @@ const fileRoutes = require('./src/routes/file-upload-routes')
 const Role = require('./src/models/role.model')
 
 //import APIs
-const authAPI = require('./src/apis/auth.api') 
-const userAPI = require('./src/apis/user.api') 
-const employeeAPI = require('./src/apis/employee.api') 
-const fileAPI = require('./src/apis/file.api') 
+const authAPI = require('./src/apis/auth.api')
+const userAPI = require('./src/apis/user.api')
+const employeeAPI = require('./src/apis/employee.api')
+const fileAPI = require('./src/apis/file.api')
+const MessageAPI = require('./src/apis/message.api')
 
 dotenv.config()
 const app = express()
@@ -54,10 +55,11 @@ app.route('/').get((req, res) => {
   res.send('SSD Assignment 2')
 })
 
-app.use('/auth', authAPI()) 
-app.use('/user', userAPI()) 
-app.use('/employee', employeeAPI()) 
-app.use('/file', fileAPI()) 
+app.use('/auth', authAPI())
+app.use('/user', userAPI())
+app.use('/employee', employeeAPI())
+app.use('/file', fileAPI())
+app.use('/message', MessageAPI())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use('/api', fileRoutes.routes)
