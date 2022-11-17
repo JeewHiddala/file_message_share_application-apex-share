@@ -48,18 +48,20 @@ app.listen(PORT, () => {
 app.use('/message', messageApi());
 app.use('/auth', authApi());
 
-test('Backend Test Case 01 - should insert a new message', async () => {
-    await request(app).post('/message/create').send({
-        message: "Today is Wednesday",
+let authId;
+let mgrid;
+// test('Backend Test Case 01 - should insert a new message', async () => {
+//     await request(app).post('/message/create').send({
+//         message: "Today is Wednesday",
         
-    }).expect(200).then((res) => {
-        id = res.body._id;
-    });
-})
+//     }).expect(200).then((res) => {
+//         id = res.body._id;
+//     });
+// })
 
 test('Backend Test Case 02 - Should create manager', async () => {
     await request(app).post('/auth/signup').send({
-        userName: "Sherin",
+        userName: "Sherinlk",
         password: "sherin@1234",
         role: "manager"
     }).expect(200).then((res) => {
@@ -69,7 +71,7 @@ test('Backend Test Case 02 - Should create manager', async () => {
 
 test('Backend Test Case 03 - Should insert a new manager', async () => {
     await request(app).post('/employee/create').send({
-        name:"Saman Hettiwaththa",
+        name:"Sherin",
         position:"manager",
         email:"saman@skylight.com",
         mobileNumber: "0787555555",
@@ -78,29 +80,16 @@ test('Backend Test Case 03 - Should insert a new manager', async () => {
         isWorking: true,
         userName:"samanH",
         password:"saman123",
-        userData: authId
+        userData: "6376002ae62f3a6140d64ba3"
     }).expect(200).then((res) => {
         mgrid = res.body._id;
     });
 })
 
 test('Backend Test Case 04 - Should upload new file', async () => {
-    let manager= await request(app).post('/employee/create').send({
-        name:"Saman Hettiwaththa",
-        position:"manager",
-        email:"saman@skylight.com",
-        mobileNumber: "0787555555",
-        nicNo:"544481111V",
-        salary:75000,
-        isWorking: true,
-        userName:"samanH",
-        password:"saman123",
-        userData: authId
-    })
-    console.log(manager);
     await request(app).post('/file/upload').send({
         fileUrl: "http://res.cloudinary.com/svxzwylz/image/upload/v1668668270/xqxajdanll1gdpq6qgav.pdf",
-        managerId: manager._id
+        managerId: "6376002ae62f3a6140d64ba3"
     }).expect(200).then((res) => {
         id = res.body._id;
     });
